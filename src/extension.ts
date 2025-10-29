@@ -18,7 +18,7 @@ export async function activate(context: ExtensionContext): Promise<void> {
   }
 
   const serverOptions: ServerOptions = {
-    command: (config.commandPath || require.resolve('bash-language-server/out/cli.js')),
+    ...(config.commandPath ? {command: config.commandPath} : {module: require.resolve('bash-language-server/out/cli.js')}),
     args: ['start'],
     transport: TransportKind.stdio
   }
